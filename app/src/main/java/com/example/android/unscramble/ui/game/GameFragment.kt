@@ -81,6 +81,13 @@ class GameFragment : Fragment() {
         binding.wordCount.text = getString(
             R.string.word_count, 0, MAX_NO_OF_WORDS
         )
+        // Observe the currentScrambledWord LiveData.
+// Observe the scrambledCharArray LiveData, passing in the LifecycleOwner and the observer.
+// Observe the scrambledCharArray LiveData, passing in the LifecycleOwner and the observer.
+        viewModel.currentScrambledWord.observe(viewLifecycleOwner
+        ) { newWord ->
+            binding.textViewUnscrambledWord.text = newWord
+        }
     }
 
     /*
@@ -92,16 +99,13 @@ class GameFragment : Fragment() {
 
         if (viewModel.isUserWordCorrect(playerWord)) {
             setErrorTextField(false)
-            if (viewModel.nextWord()) {
-                updateNextWordOnScreen()
-            } else {
+            if (!viewModel.nextWord()) {
                 showFinalScoreDialog()
             }
         } else {
             setErrorTextField(true)
         }
     }
-
     /*
     * Skips the current word without changing the score.
     */
