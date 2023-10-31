@@ -8,7 +8,7 @@ class GameViewModel : ViewModel() {
     val score: Int
         get() = _score
     private var _currentWordCount = 0
-    val currentWordCount: Int
+    var currentWordCount: Int = 0
         get() = _currentWordCount
     private lateinit var _currentScrambledWord: String
     val currentScrambledWord: String
@@ -64,5 +64,15 @@ class GameViewModel : ViewModel() {
             return true
         }
         return false
+    }
+
+    /*
+* Re-initializes the game data to restart the game.
+*/
+    fun reinitializeData() {
+        _score = 0
+        _currentWordCount = 0
+        wordsList.clear()
+        getNextWord()
     }
 }
