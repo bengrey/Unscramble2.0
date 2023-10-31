@@ -15,6 +15,10 @@ class GameViewModel : ViewModel() {
     private var wordsList: MutableList<String> = mutableListOf()
     private lateinit var currentWord: String
 
+    private fun increaseScore() {
+        _score += SCORE_INCREASE
+    }
+
     init {
         Log.d("GameFragment", "GameViewModel created!")
         getNextWord()
@@ -50,5 +54,13 @@ class GameViewModel : ViewModel() {
             getNextWord()
             true
         } else false
+    }
+
+    fun isUserWordCorrect(playerWord: String): Boolean {
+        if (playerWord.equals(currentWord, true)) {
+            increaseScore()
+            return true
+        }
+        return false
     }
 }
